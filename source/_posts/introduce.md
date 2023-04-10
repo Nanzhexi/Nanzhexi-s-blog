@@ -10,4 +10,4 @@ Welcome to my site
 ![](https://5b0988e595225.cdn.sohucs.com/images/20180425/600115a9255c4c0fb3e1ca3b1b36f0fb.png)
 
 
-{% meting "1410874262" "netease" "song" "theme:#FF4081" "mode:circulation" "mutex:true" "listmaxheight:340px" "preload:auto" "autoplay:"%}
+{% meting "1410874262" "netease" "song" "theme:#FF4081" "mode:circulation" "mutex:true" "listmaxheight:340px" "preload:auto" "autoplay"%}
