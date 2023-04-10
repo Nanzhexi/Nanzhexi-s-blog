@@ -103,3 +103,6 @@ theme: pure
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: ''
+  
+aplayer:
+  meting: true                                  # Meting support, default: false
