@@ -1,5 +1,6 @@
 ---
 title: 关于博客
+date: 2023-04-10
 ---
 Welcome to my site
 
