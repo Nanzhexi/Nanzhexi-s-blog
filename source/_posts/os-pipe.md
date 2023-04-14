@@ -60,4 +60,44 @@ PIPE_BUF所能容纳时，则多个写操作的数据可能会交错。
 
 必须在系统调用fork之前调用pipe，否则子进程将不会继承管道的文件描述符。
 ![ixKCKz.jpeg](https://i.328888.xyz/2023/04/14/ixKCKz.jpeg)
-![ixJQzE.png](https://i.328888.xyz/2023/04/14/ixJQzE.png)
+```
+#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <sys/wait.h>
+#include <string.h>
+int main()
+{
+	//创建无名管道
+	int fd[2];
+	pipe(fd[2]);
+
+	//创建进程
+	pip_t pid=fork();
+	if(pid<0)
+	{
+		perror("创建失败\n");
+		_exit(-1);
+	}
+	else if(pid==0)//子进程
+	{
+		close(fd[1]);
+		unsigned char buf[50]="";
+		printf("子进程: %d 读取数据\n"，getpid());
+		read(fd[0],buf,sizeof(buf));
+		close(fd[0]);
+
+	}
+	else if(pid>0)//父进程
+	{
+		//父进程写数据,读关闭
+		close(fd[0]);
+		printf("父进程: %d 3s后写入数据。。\n",getpid());
+		sleep(3);
+		write(fd[1],"child process\n",strlen("child process\n"));
+		close(fd[1]);
+		//等待回收子进程资源
+		wait(NULL);
+	}
+}
+```
