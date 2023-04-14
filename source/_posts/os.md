@@ -32,7 +32,6 @@ int main()
 		sleep(3);
 		write(fd[1],"child process P1\n",strlen("child process P1\n"));
 		close(fd[1]);
-		printf("子进程1: %d 写入完毕\n",getpid());
 	}
 	else if(pid1>0)//父进程
 	{
@@ -49,7 +48,6 @@ int main()
 			sleep(3);
 			write(fd[1],"child process P2\n",strlen("child process P2\n"));
 			close(fd[1]);
-			printf("子进程2: %d 写入完毕\n",getpid());
 		}
 		else if(pid2 >0)
 		{
@@ -67,4 +65,4 @@ int main()
 }
 ```
 **这才有最后结果**
-![ix9Ypw.png](https://i.328888.xyz/2023/04/14/ix9Ypw.png)
+![ixJBOV.png](https://i.328888.xyz/2023/04/14/ixJBOV.png)
