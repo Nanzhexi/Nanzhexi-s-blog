@@ -97,6 +97,6 @@ int main()
 }
 ```
 **辅助图**
-![](https://ask.qcloudimg.com/http-save/yehe-8223537/c8d80c6174fa9ef860b91147c16ec240.png?imageView2/2/w/2560/h/7000)
+![ixYXzc.png](https://i.328888.xyz/2023/04/14/ixYXzc.png)
 **执行效果**
-![[](https://ask.qcloudimg.com/http-save/yehe-8223537/da36c953478ff1c3ba85d33e883331a0.png?imageView2/2/w/2560/h/7000)
+![ixYg1A.png](https://i.328888.xyz/2023/04/14/ixYg1A.png)
