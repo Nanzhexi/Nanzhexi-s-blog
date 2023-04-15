@@ -101,4 +101,61 @@ WHERE premiered IS NOT NULL
 GROUP BY decade
 ORDER BY avg_rating DESC, decade ASC
 ```
-<font color=red size=5>暂时写了这么多</font>
+<font size=5>**Q6: [10 points] (q6_cruiseing_altitude)**</font>
+**Brief:**
+Determine the most popular works with a person who has "Cruise" in their name and is born in 1962.
+
+**Details:**
+Get the works with the most votes that have a person in the crew with "Cruise" in their name who was born in 1962. Return both the name of the work and the number of votes and only list the top 10 results in order from most to least votes. Make sure your output is formatted as follows: <font color=red>Top Gun|408389</font>
+```
+select primary_title,votes from titles,ratings,people,crew 
+   	where name like "%Cruise%"
+  	and born=1962
+   	and people.person_id=crew.person_id
+   	and crew.title_id=titles.title_id
+   	and crew.title_id=ratings.title_id
+   	order by votes desc
+   	limit 10;
+```
+**或**
+```
+select primary_title,votes from crew 
+        inner join people on people.person_id=crew.person_id
+   	inner join ratings on ratings.title_id=crew.title_id
+   	inner join titles on titles.title_id=crew.title_id
+   	where name like "%Cruise%"
+  	order by votes desc
+   	limit 10;
+```
+<font size=5>**Q7: [15 points] (q7_year_of_thieves)**</font>
+**Brief:**
+List the number of works that premiered in the same year that "Army of Thieves" premiered.
+
+**Details:**
+Print only the total number of works. The answer should include "Army of Thieves" itself. For this question, determine distinct works by their <font color=red>title_id</font>, not their names.
+```
+select count(distinct title_id) from titles
+   	where premiered in (select premiered from titles where primary_title="Army of Thieves");
+```
+<font size=5>**Q8: [15 points] (q8_kidman_colleagues)**</font>
+**Brief:**
+List the all the different actors and actresses who have starred in a work with Nicole Kidman (born in 1967).
+
+**Details:**
+Print only the names of the actors and actresses in alphabetical order. The answer should include Nicole Kidman herself. Each name should only appear once in the output.
+
+**Note:** As mentioned in the schema, when considering the role of an individual on the crew, refer to the field <font color=red>category</font>. The roles "actor" and "actress" are different and should be accounted for as such.
+```
+with Nice_work as ( select distinct (crew.title_id) 
+ 	from people 
+ 	inner join crew on people.person_id=crew.person_id
+ 	and people.name="Nicole Kidman"
+ 	and people.born=1967),
+ 	Nico_colleagues as ( select distinct (crew.person_id) as id
+ 	from crew
+ 	where (crew.category ="actor" or crew.category = "actress") and crew.title_id in Nice_work )
+ 	select name
+ 	from people join Nico_colleagues on Nico_colleagues.id = people.person_id
+ 	order by name desc;
+```
+<font size=5 color=red>**还有q9和q10 容我慢慢想**</font>
