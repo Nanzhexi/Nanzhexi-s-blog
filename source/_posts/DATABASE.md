@@ -1,6 +1,7 @@
 ---
 title: Homework "#1 - SQL"
 categories: SQL
+tags: sql
 date: 2023-04-13
 ---
 ```

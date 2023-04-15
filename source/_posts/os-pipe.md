@@ -1,6 +1,7 @@
 ---
 title: 管道
 categories: 操作系统
+tags: 管道
 date: 2023-04-14
 ---
 1、管道的创建

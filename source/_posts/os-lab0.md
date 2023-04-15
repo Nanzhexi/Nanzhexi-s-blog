@@ -1,6 +1,7 @@
 ---
 title: OS-lab0
 categories: 操作系统
+tags: 管道
 date: 2023-4-14
 ---
 <font size=5>**pingpong**</font>
