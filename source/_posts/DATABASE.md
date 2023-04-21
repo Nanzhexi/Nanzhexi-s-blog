@@ -2,7 +2,7 @@
 title: Homework "#1 - SQL"
 categories: SQL
 tags: sql
-date: 2023-04-13
+date: 2023-04-21
 ---
 ```
 sqlite> select count(*) from titles;
@@ -158,4 +158,45 @@ with Nice_work as ( select distinct (crew.title_id)
  	from people join Nico_colleagues on Nico_colleagues.id = people.person_id
  	order by name desc;
 ```
-<font size=5 color=red>**还有q9和q10 容我慢慢想**</font>
+<font size=5>**Q9: [15 points] (q9_9th_decile_ratings)**</font>
+**Brief:**
+For all people born in 1955, get their name and average rating on all movies they have been part of through their careers. Output the 9th decile of individuals as measured by their average career movie rating.
+
+**Details:**
+Calculate average ratings for each individual born in 1955 across only the movies they have been part of. Compute the quantiles for each individual's average rating using NTILE(10).
+Make sure your output is formatted as follows (round average rating to the nearest hundredth, results should be ordered by a compound value of their ratings descending and secondly their name in alphabetical order): <font color=red>Stanley Nelson|7.13</font>
+
+**Note:** You should take quantiles after processing the average career movie rating of individuals. In other words, find the individuals who have an average career movie rating in the 9th decile of all individuals.
+```
+WITH actor_movie_1955 AS (
+	SELECT
+    	people.person_id,	
+    	people.name,
+    	titles.title_id	
+    FROM
+    	people
+    INNER JOIN
+    	crew ON people.person_id = crew.person_id
+    INNER JOIN
+    	titles ON titles.title_id = crew.title_id
+    WHERE people.born = 1955 AND titles.type = "movie"
+),	
+actor_ratings AS (
+	SELECT
+    	name,
+    	ROUND(AVG(ratings.rating), 2) AS rating
+    FROM ratings
+    INNER JOIN actor_movie_1955
+    	ON ratings.title_id = actor_movie_1955.title_id
+    GROUP BY actor_movie_1955.person_id
+),
+quartiles AS (
+	SELECT *, NTILE(10) OVER (ORDER BY rating ASC)
+    	AS RatingQuartile FROM actor_ratings
+)
+SELECT name, rating
+FROM quartiles
+WHERE RatingQuartile = 9
+ORDER BY rating DESC, name ASC;
+```
+<font size=5 color=red>**q10 有点难,容我再慢慢想**</font>
