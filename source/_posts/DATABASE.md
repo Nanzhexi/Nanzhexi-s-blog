@@ -199,4 +199,40 @@ FROM quartiles
 WHERE RatingQuartile = 9
 ORDER BY rating DESC, name ASC;
 ```
-<font size=5 color=red>**q10 有点难,容我再慢慢想**</font>
+<font size=5>**Q10: [15 points] (q10_house_of_the_dragon)**</font>
+**Brief:**
+Concatenate all the unique titles for the **TV Series** "House of the Dragon" as a string of comma-separated values in alphabetical order of the titles.
+
+**Details:**
+Find all the unique dubbed titles for the new **TV show** "House of the Dragon" and order them alphabetically. Print a single string containing all these titles separated by commas.
+
+**Hint:** You might find <font color=blue>Recursive CTEs</font> useful.
+
+**Note:** Two titles are different even if they differ only in capitalization. Elements in the comma-separated value result should be separated with both a comma and a space, e.g. "foo, bar".
+```
+WITH p as (
+	SELECT titles.primary_title as name, akas.title as dubbed
+    FROM titles
+    INNER JOIN akas ON titles.title_id = akas.title_id
+    WHERE titles.primary_title = "House of the Dragon" AND titles.type = "tvSeries"
+    GROUP BY titles.primary_title, akas.title
+    ORDER BY akas.title
+),
+c as (
+	SELECT row_number() 
+    	OVER (ORDER BY p.name ASC) AS seqnum，p.dubbed as dubbed
+    FROM p
+),
+flattended AS (
+	SELECT seqnum, dubbed
+    FROM c
+    WHERE seqnum = 1
+    UNION ALL
+    SELECT c.seqnum, f.dubbed || ', ' || c.dubbed
+    FROM c JOIN flattended f 
+    	ON c.seqnum = f.seqnum + 1
+)
+SELECT dubbed FROM flattended
+ORDER BY seqnum DESC LIMIT 1;
+```
+<font size=5 color=red>**q10 有点看不懂**</font>
