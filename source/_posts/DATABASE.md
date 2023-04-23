@@ -2,7 +2,7 @@
 title: Homework "#1 - SQL"
 categories: SQL
 tags: sql
-date: 2023-04-21
+date: 2023-04-23
 ---
 ```
 sqlite> select count(*) from titles;
