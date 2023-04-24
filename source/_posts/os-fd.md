@@ -1,5 +1,5 @@
 ---
-title: Linux文件描述符到底是什么？
+title: Linux文件描述符到底是什么?
 categories: 操作系统
 tags:文件描述符
 date: 2023-4-24
