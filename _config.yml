@@ -106,7 +106,6 @@ deploy:
   
 aplayer:
   meting: true                                  # Meting support, default: false
- S
  # hexo-neat
 neat_enable: true
 neat_html:
